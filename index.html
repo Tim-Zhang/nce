@@ -15,7 +15,7 @@
       <div v-show="loading">Loading...</div>
       <div v-show="!loading">
         <h1>{{title.en}}</h1>
-        <audio ref="audio" :src="'http://gh.jiecao.pw/nce-resource/mp3/C' + id + '.mp3'" controls controlsList="nodownload"></audio>
+        <audio ref="audio" :src="'http://tim-zhang.gitee.io/nce-resource/mp3/C' + id + '.mp3'" controls controlsList="nodownload"></audio>
         <div class="line" v-for="line in lines">
           <input v-if="!line.diff" type="text" :placeholder="line.placeholder" @keyup.enter="next" v-model="line.answer"
           autocorrect="off" autocapitalize="off" spellcheck="false" @keydown="lineKeydown(line, $event)">
