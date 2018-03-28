@@ -1,0 +1,21 @@
+.line {
+  margin: 15px 0;
+}
+.line input[type=text] {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  outline-style: none;
+  font-size: 18px;
+  border-bottom: 1px solid #666;
+  width: 100%;
+  color: #333;
+}
+
+input[type=button] {
+  font-size: 50px;
+}
+
+span {
+  font-size: 18px;
+}
