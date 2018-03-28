@@ -1,11 +1,11 @@
-import LRC from './lrc.js'
-import Helper from './helper.js'
+import LRC from './lrc.js?v=2'
+import Helper from './helper.js?v=2'
 
 var app = new Vue({
   el: '#app',
   template: '#main',
   data: {
-    id: 201,
+    id: 0,
     message: 'Hello Vue!',
     title: {},
     inputs: [],
@@ -18,13 +18,16 @@ var app = new Vue({
     showSubtitle: true,
   },
   methods: {
-    async init() {
+    setId() {
+      this.id = Helper.getLessionIdFromUrl()
+    },
+    async load() {
       this.loading = true
 
       const q = Helper.parseQueryString()
-      this.id = q.id || '201'
       this.showChinese = !['0', 'false'].includes(q.chinese)
       this.showSubtitle = !['0', 'false'].includes(q.subtitle)
+
       const lrc = new LRC(`http://gh.jiecao.pw/nce-resource/lrc/${this.id}.lrc`)
       await lrc.run()
       this.title = lrc.title
@@ -34,6 +37,7 @@ var app = new Vue({
         diff: '',
         placeholder: this.getPlaceholder(line),
       }, line))
+
       this.loading = false
     },
     lineKeydown(line, event) {
@@ -52,7 +56,7 @@ var app = new Vue({
       this.lines.forEach(line => {
         line.placeholder = this.getPlaceholder(line)
         line.current = false
-        if (line.start <= currentTime && line.end >= currentTime) {
+        if (line.start <= currentTime && (line.end >= currentTime || !line.end)) {
           line.placeholder = this.getPlaceholder(line, true)
           line.current = true
         }
@@ -74,6 +78,9 @@ var app = new Vue({
         this.submit()
       }
     },
+    changeLesson() {
+      Helper.setLessionIdInUrl(this.id)
+    },
     submit() {
       let right = true
       this.lines.forEach(line => {
@@ -91,7 +98,8 @@ var app = new Vue({
     },
   },
   async created() {
-    await this.init()
+    this.setId()
+    await this.load()
     document.addEventListener('keydown', (e) => {
       if ((e.shiftKey || e.ctrlKey || e.metaKey) && e.which === 13) {
         this.submit()
@@ -113,6 +121,14 @@ var app = new Vue({
       this.pause = 0
       this.setPlaceHolder(-1)
     })
-  }
+
+    window.addEventListener('hashchange', () => {
+      this.setId()
+      this.load()
+    })
+  },
+  watch: {
+    id: 'changeLesson'
+  },
 })
 

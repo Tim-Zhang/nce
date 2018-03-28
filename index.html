@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/index.css">
   <title>NCE</title>
@@ -26,8 +26,11 @@
             ">{{d.value}}</span>
           </div>
         </div>
-        <input type="button" value="Submit" @click="submit"/>
-        <input type="button"  value="Restore" @click="restore" v-if="lines[0] && lines[0].diff"/>
+        <input type="button" value="Submit" @click="submit" v-show="!lines[0] || !lines[0].diff"/>
+        <input type="button"  value="Restore" @click="restore" v-show="lines[0] && lines[0].diff"/>
+        <select v-model="id">
+          <option :value="200 + i" v-for="i in 96">{{i}}</option>
+        </select>
         <!-- <input type="button"  value="Listen" @click="listen" v-if="!pause"/>
         <input type="button"  value="Pause" @click="pause" v-if="pause"/> -->
       </div>
@@ -35,6 +38,6 @@
   </template>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://cdn.bootcss.com/jsdiff/3.5.0/diff.min.js"></script>
-  <script src="js/main.js" type="module"></script>
+  <script src="js/main.js?v=2" type="module"></script>
 </body>
-</html>
+</html
