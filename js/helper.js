@@ -82,7 +82,8 @@ export default {
 
     const book2 = Array(96).fill().map((_, i) => 200 + i + 1)
     const book3 = Array(60).fill().map((_, i) => 300 + i + 1)
+    const book4 = Array(45).fill().map((_, i) => 400 + i + 1)
 
-    return [].concat(book1, book2, book3)
+    return [].concat(book1, book2, book3, book4)
   }
 }
