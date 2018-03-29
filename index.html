@@ -15,7 +15,8 @@
       <div v-show="loading">Loading...</div>
       <div v-show="!loading">
         <h1>{{title.en}}</h1>
-        <audio ref="audio" :src="'http://tim-zhang.gitee.io/nce-resource/mp3/C' + id + '.mp3'" controls controlsList="nodownload"></audio>
+        <audio ref="audio" :src="'http://tim-zhang.gitee.io/nce-resource/mp3/' + id + '.mp3'" controls controlsList="nodownload"></audio>
+        <!-- <audio ref="audio" :src="'/mp3/' + id + '.mp3'" controls controlsList="nodownload"></audio> -->
         <div class="line" v-for="line in lines">
           <input v-if="!line.diff" type="text" :placeholder="line.placeholder" @keyup.enter="next" v-model="line.answer"
           autocorrect="off" autocapitalize="off" spellcheck="false" @keydown="lineKeydown(line, $event)">
@@ -29,7 +30,7 @@
         <input type="button" value="Submit" @click="submit" v-show="!lines[0] || !lines[0].diff"/>
         <input type="button"  value="Restore" @click="restore" v-show="lines[0] && lines[0].diff"/>
         <select v-model="id">
-          <option :value="200 + i" v-for="i in 96">{{i}}</option>
+          <option v-for="i in lessons">{{i}}</option>
         </select>
         <!-- <input type="button"  value="Listen" @click="listen" v-if="!pause"/>
         <input type="button"  value="Pause" @click="pause" v-if="pause"/> -->
@@ -38,6 +39,6 @@
   </template>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://cdn.bootcss.com/jsdiff/3.5.0/diff.min.js"></script>
-  <script src="js/main.js?v=2" type="module"></script>
+  <script src="js/main.js?v=3" type="module"></script>
 </body>
 </html

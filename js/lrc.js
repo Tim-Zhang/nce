@@ -19,10 +19,10 @@ export default class LRC {
     this.title.en = titleEn.trim()
     this.title.cn = titleCn.trim()
 
-    this.lines = rawLines.slice(3, -1).map(line => {
-      const [m, s] = line.slice(1, 9).split(':').map(i => +i)
+    this.lines = rawLines.filter(line => line.trim()).slice(1).map(line => {
+      const [m, s] = line.slice(1, 10).split(':').map(i => +i)
       const start = m * 60 + s
-      const [en, cn] = line.slice(10).split('^')
+      const [en, cn] = line.slice(11).split('^').map(str => str.trim())
       return {start, en, cn}
     })
 

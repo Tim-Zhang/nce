@@ -62,13 +62,27 @@ export default {
 
 
 
-  getLessionIdFromUrl() {
+  getLessionIdFromUrl(lessons) {
     let hash = +(location.hash && location.hash.slice(1))
-    if (isNaN(hash) || hash < 201 || hash > 296) hash = 201
+    if (isNaN(hash) || !lessons.includes(hash)) hash = 201
     return hash
   },
 
   setLessionIdInUrl(id) {
     location.hash = id
   },
+
+  initLessons() {
+    const book1 = Array(143).fill().map((_, i) => i + 1).filter(i => !!(i % 2)).map(i => {
+      let repeat = 2 - i.toString().length
+      repeat < 0 && (repeat = 0)
+      let prefix = '1' + '0'.repeat(repeat)
+      return Number(prefix + i)
+    })
+
+    const book2 = Array(96).fill().map((_, i) => 200 + i + 1)
+    const book3 = Array(60).fill().map((_, i) => 300 + i + 1)
+
+    return [].concat(book1, book2, book3)
+  }
 }

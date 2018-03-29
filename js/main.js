@@ -1,5 +1,5 @@
-import LRC from './lrc.js?v=2'
-import Helper from './helper.js?v=2'
+import LRC from './lrc.js?v=3'
+import Helper from './helper.js?v=3'
 
 var app = new Vue({
   el: '#app',
@@ -13,13 +13,14 @@ var app = new Vue({
     loading: true,
     pause: 0,
     mounted: false,
+    lessons: Helper.initLessons(),
 
     showChinese: true,
     showSubtitle: true,
   },
   methods: {
     setId() {
-      this.id = Helper.getLessionIdFromUrl()
+      this.id = Helper.getLessionIdFromUrl(this.lessons)
     },
     async load() {
       this.loading = true
@@ -29,6 +30,7 @@ var app = new Vue({
       this.showSubtitle = !['0', 'false'].includes(q.subtitle)
 
       const lrc = new LRC(`http://gh.jiecao.pw/nce-resource/lrc/${this.id}.lrc`)
+      // const lrc = new LRC(`/lrc/${this.id}.lrc`)
       await lrc.run()
       this.title = lrc.title
       this.lines = lrc.lines.map(line => Object.assign({
