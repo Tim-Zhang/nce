@@ -29,8 +29,7 @@ var app = new Vue({
       this.showChinese = !['0', 'false'].includes(q.chinese)
       this.showSubtitle = !['0', 'false'].includes(q.subtitle)
 
-      const lrc = new LRC(`http://gh.jiecao.pw/nce-resource/lrc/${this.id}.lrc`)
-      // const lrc = new LRC(`/lrc/${this.id}.lrc`)
+      const lrc = new LRC(`/lrc/${this.id}.lrc`)
       await lrc.run()
       this.title = lrc.title
       this.lines = lrc.lines.map(line => Object.assign({
