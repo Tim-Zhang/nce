@@ -1,4 +1,4 @@
-export default class LRC {
+class LRC {
   constructor(src) {
     this.title = {}
     this.src = src

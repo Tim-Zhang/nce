@@ -1,4 +1,4 @@
-export default {
+window.Helper = {
   getParameterByName(name, url) {
     if (!url) url = window.location.href
     name = name.replace(/[\[\]]/g, "\\$&")

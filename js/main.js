@@ -1,5 +1,5 @@
-import LRC from './lrc.js?v=3'
-import Helper from './helper.js?v=3'
+// import LRC from './lrc.js?v=3'
+// import Helper from './helper.js?v=3'
 
 var app = new Vue({
   el: '#app',
