@@ -63,12 +63,15 @@ export default {
 
 
   getLessionIdFromUrl(lessons) {
+    const defaultId = 201
+    const lastId = localStorage.getItem('lastLessonId')
     let hash = +(location.hash && location.hash.slice(1))
-    if (isNaN(hash) || !lessons.includes(hash)) hash = 201
+    if (isNaN(hash) || !lessons.includes(hash)) hash = lastId || defaultId
     return hash
   },
 
   setLessionIdInUrl(id) {
+    localStorage.setItem('lastLessonId', id)
     location.hash = id
   },
 
