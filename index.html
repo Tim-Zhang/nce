@@ -18,9 +18,15 @@
         <audio ref="audio" :src="'http://tim-zhang.gitee.io/nce-resource/mp3/' + id + '.mp3'" controls controlsList="nodownload"></audio>
         <!-- <audio ref="audio" :src="'/mp3/' + id + '.mp3'" controls controlsList="nodownload"></audio> -->
         <div class="line" v-for="(line, idx) in lines">
-          <input ref="line" v-if="!line.diff" type="text" :placeholder="line.placeholder" @keyup.enter="next" v-model="line.answer"
-          autocorrect="off" autocapitalize="off" spellcheck="false" @keydown="lineKeydown(line, $event)"
-          :autofocus="line.focus" @focus="onFocus(idx)">
+          <input autocorrect="off" autocapitalize="off" spellcheck="false"
+            ref="line" v-if="!line.diff" type="text" v-model="line.answer"
+            :placeholder="line.placeholder" :autofocus="line.focus"
+            @keydown.up="gotoPrevLine"
+            @keydown.down="gotoNextLine"
+            @keydown.enter="gotoNextLine"
+            @keydown="onLineKeydown(line, $event)"
+            @focus="onLineFocus(idx)"
+          >
           <div v-else :style="{background: line.current? '#fff8d1': ''}">
             <span v-for="d in line.diff" :style="
             {color: d.added ? 'grey' : d.removed ? 'red' : 'green',
@@ -40,8 +46,8 @@
   </template>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://cdn.bootcss.com/jsdiff/3.5.0/diff.min.js"></script>
-  <script src="js/helper.js?v=5"></script>
-  <script src="js/lrc.js?v=5"></script>
-  <script src="js/main.js?v=5"></script>
+  <script src="js/helper.js?v=6"></script>
+  <script src="js/lrc.js?v=6"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html

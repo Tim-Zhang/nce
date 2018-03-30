@@ -24,6 +24,7 @@ var app = new Vue({
     setId() {
       this.id = Helper.getLessionIdFromUrl(this.lessons)
     },
+
     async load() {
       this.loading = true
 
@@ -44,7 +45,8 @@ var app = new Vue({
       this.lines && (this.lines[0].focus = true)
       this.loading = false
     },
-    lineKeydown(line, event) {
+
+    onLineKeydown(line, event) {
       if (event.metaKey && event.which === 191) {
         this.setPlaceHolder(-1)
         this.$refs.audio.currentTime = line.start
@@ -52,10 +54,16 @@ var app = new Vue({
         this.$refs.audio.play()
       }
     },
+
+    onLineFocus(idx) {
+      lastFocusIdx = idx
+    },
+
     getPlaceholder(line, en) {
       if (en) return this.showSubtitle ? line.en : ''
       return this.showChinese ? line.cn : ''
     },
+
     setPlaceHolder(currentTime) {
       this.lines.forEach(line => {
         line.placeholder = this.getPlaceholder(line)
@@ -66,28 +74,36 @@ var app = new Vue({
         }
       })
     },
+
     listen() {
       this.pause = Infinity
       this.$refs.audio.currentTime = 0
       this.$refs.audio.play()
     },
+
     pause() {
       this.pause = 0
       this.$refs.audio.pause()
     },
-    next(event) {
+
+    gotoPrevLine() {
+      try {
+        event.target.parentElement.previousElementSibling.children[0].focus()
+      } catch (e) {}
+    },
+
+    gotoNextLine(event) {
       try {
         event.target.parentElement.nextElementSibling.children[0].focus()
       } catch (e) {
         this.submit()
       }
     },
+
     changeLesson() {
       Helper.setLessionIdInUrl(this.id)
     },
-    onFocus(idx) {
-      lastFocusIdx = idx
-    },
+
     submit() {
       let right = true
       this.lines.forEach(line => {
@@ -98,6 +114,7 @@ var app = new Vue({
         alert('Congratulations!')
       }
     },
+
     restore() {
       this.lines.forEach(line => {
         line.diff = ''
@@ -108,6 +125,7 @@ var app = new Vue({
       })
     },
   },
+
   async created() {
     this.setId()
     await this.load()
@@ -119,6 +137,7 @@ var app = new Vue({
       }
     })
   },
+
   mounted() {
     this.mounted = true
     const audio = this.$refs.audio
@@ -138,6 +157,7 @@ var app = new Vue({
       this.load()
     })
   },
+
   watch: {
     id: 'changeLesson'
   },
