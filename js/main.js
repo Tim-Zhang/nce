@@ -1,6 +1,8 @@
 // import LRC from './lrc.js?v=3'
 // import Helper from './helper.js?v=3'
 
+let lastFocusIdx = 0
+
 var app = new Vue({
   el: '#app',
   template: '#main',
@@ -39,6 +41,7 @@ var app = new Vue({
         placeholder: this.getPlaceholder(line),
       }, line))
 
+      this.lines && (this.lines[0].focus = true)
       this.loading = false
     },
     lineKeydown(line, event) {
@@ -82,6 +85,9 @@ var app = new Vue({
     changeLesson() {
       Helper.setLessionIdInUrl(this.id)
     },
+    onFocus(idx) {
+      lastFocusIdx = idx
+    },
     submit() {
       let right = true
       this.lines.forEach(line => {
@@ -95,6 +101,10 @@ var app = new Vue({
     restore() {
       this.lines.forEach(line => {
         line.diff = ''
+      })
+
+      this.$nextTick(function () {
+        this.$refs.line[lastFocusIdx].focus()
       })
     },
   },
