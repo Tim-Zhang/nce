@@ -23,7 +23,7 @@
             :placeholder="line.placeholder" :autofocus="line.focus"
             @keydown.up="gotoPrevLine"
             @keydown.down="gotoNextLine"
-            @keydown.enter="gotoNextLine"
+            @keydown.enter.exact="gotoNextLine"
             @keydown="onLineKeydown(line, $event)"
             @focus="onLineFocus(idx)"
           >
