@@ -1,6 +1,3 @@
-// import LRC from './lrc.js?v=3'
-// import Helper from './helper.js?v=3'
-
 let lastFocusIdx = 0
 
 var app = new Vue({
@@ -8,13 +5,10 @@ var app = new Vue({
   template: '#main',
   data: {
     id: 0,
-    message: 'Hello Vue!',
     title: {},
-    inputs: [],
     lines: [],
     loading: true,
-    pause: 0,
-    mounted: false,
+    stopTime: 0,
     lessons: Helper.initLessons(),
 
     showChinese: true,
@@ -50,40 +44,13 @@ var app = new Vue({
       if (event.metaKey && event.which === 191) {
         this.setPlaceHolder(-1)
         this.$refs.audio.currentTime = line.start
-        this.pause = line.end
+        this.stopTime = line.end
         this.$refs.audio.play()
       }
     },
 
     onLineFocus(idx) {
       lastFocusIdx = idx
-    },
-
-    getPlaceholder(line, en) {
-      if (en) return this.showSubtitle ? line.en : ''
-      return this.showChinese ? line.cn : ''
-    },
-
-    setPlaceHolder(currentTime) {
-      this.lines.forEach(line => {
-        line.placeholder = this.getPlaceholder(line)
-        line.current = false
-        if (line.start <= currentTime && (line.end >= currentTime || !line.end)) {
-          line.placeholder = this.getPlaceholder(line, true)
-          line.current = true
-        }
-      })
-    },
-
-    listen() {
-      this.pause = Infinity
-      this.$refs.audio.currentTime = 0
-      this.$refs.audio.play()
-    },
-
-    pause() {
-      this.pause = 0
-      this.$refs.audio.pause()
     },
 
     gotoPrevLine() {
@@ -116,12 +83,26 @@ var app = new Vue({
     },
 
     restore() {
-      this.lines.forEach(line => {
-        line.diff = ''
-      })
+      this.lines.forEach(line => line.diff = '')
 
       this.$nextTick(function () {
         this.$refs.line[lastFocusIdx].focus()
+      })
+    },
+
+    getPlaceholder(line, en) {
+      if (en) return this.showSubtitle ? line.en : ''
+      return this.showChinese ? line.cn : ''
+    },
+
+    setPlaceHolder(currentTime) {
+      this.lines.forEach(line => {
+        line.placeholder = this.getPlaceholder(line)
+        line.current = false
+        if (line.start <= currentTime && (line.end >= currentTime || !line.end)) {
+          line.placeholder = this.getPlaceholder(line, true)
+          line.current = true
+        }
       })
     },
   },
@@ -139,16 +120,16 @@ var app = new Vue({
   },
 
   mounted() {
-    this.mounted = true
     const audio = this.$refs.audio
+
     audio.addEventListener('timeupdate', () => {
       const currentTime = audio.currentTime
-      if (this.pause === 0) this.setPlaceHolder(currentTime)
-      if (this.pause && currentTime >= this.pause) audio.pause()
+      if (this.stopTime === 0) this.setPlaceHolder(currentTime)
+      if (this.stopTime && currentTime >= this.stopTime) audio.pause()
     })
 
     audio.addEventListener('pause', () => {
-      this.pause = 0
+      this.stopTime = 0
       this.setPlaceHolder(-1)
     })
 
