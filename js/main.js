@@ -36,11 +36,11 @@ var app = new Vue({
         placeholder: this.getPlaceholder(line),
       }, line))
 
-      this.lines && (this.lines[0].focus = true)
       this.loading = false
     },
 
     onLineKeydown(line, event) {
+      // Hotkey: meta + ?
       if (event.metaKey && event.which === 191) {
         this.setPlaceHolder(-1)
         this.$refs.audio.currentTime = line.start
@@ -111,9 +111,9 @@ var app = new Vue({
     this.setId()
     await this.load()
     document.addEventListener('keydown', (e) => {
-      if ((e.shiftKey || e.ctrlKey || e.metaKey) && e.which === 13) {
+      if ((e.shiftKey || e.ctrlKey || e.metaKey) && e.which === 13) { // Hotkey: shift/ctrl/meta + enter
         this.submit()
-      } else if (e.which === 27) {
+      } else if (e.which === 27) { // Hotkey: esc
         this.restore()
       }
     })

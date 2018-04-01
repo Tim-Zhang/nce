@@ -12,6 +12,23 @@
   color: #333;
 }
 
+.line > div.current {
+  background: #fff8d1;
+}
+
+.equal {
+  color: green;
+}
+
+.added {
+  color: grey;
+}
+
+.removed {
+  color: red;
+  text-decoration: line-through;
+}
+
 input[type=button] {
   font-size: 30px;
 }

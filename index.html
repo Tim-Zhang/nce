@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/index.css?v=1">
   <title>NCE</title>
 </head>
 <body>
@@ -19,18 +19,17 @@
         <div class="line" v-for="(line, idx) in lines">
           <input autocorrect="off" autocapitalize="off" spellcheck="false"
             ref="line" v-if="!line.diff" type="text" v-model="line.answer"
-            :placeholder="line.placeholder" :autofocus="line.focus"
+            :placeholder="line.placeholder" :autofocus="idx === 0"
             @keydown.up="gotoPrevLine"
             @keydown.down="gotoNextLine"
             @keydown.enter.exact="gotoNextLine"
             @keydown="onLineKeydown(line, $event)"
             @focus="onLineFocus(idx)"
           >
-          <div v-else :style="{background: line.current? '#fff8d1': ''}">
+          <div v-else :class="{current: line.current}">
             <span v-for="d in line.diff"
-              :style="{color: d.added ? 'grey' : d.removed ? 'red' : 'green',
-              textDecoration: d.removed ? 'line-through' : ''}
-            ">{{d.value}}
+              :class="[d.added ? 'added' : d.removed ? 'removed' : 'equal']"
+            >{{d.value}}
             </span>
           </div>
         </div>
