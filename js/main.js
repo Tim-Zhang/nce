@@ -67,6 +67,10 @@ var app = new Vue({
       }
     },
 
+    clear() {
+      this.lines.forEach(line => line.answer = '')
+    },
+
     changeLesson() {
       Helper.setLessionIdInUrl(this.id)
     },
@@ -115,6 +119,8 @@ var app = new Vue({
         this.submit()
       } else if (e.which === 27) { // Hotkey: esc
         this.restore()
+      } else if (e.which === 76 && e.ctrlKey) { // Hotkey: ctrl + l
+        this.clear()
       }
     })
   },
