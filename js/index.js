@@ -130,6 +130,7 @@ var app = new Vue({
 
     audio.addEventListener('timeupdate', () => {
       const currentTime = audio.currentTime
+      console.log(currentTime)
       if (this.stopTime === 0) this.setPlaceHolder(currentTime)
       if (this.stopTime && currentTime >= this.stopTime) audio.pause()
     })
@@ -147,6 +148,12 @@ var app = new Vue({
 
   watch: {
     id: 'changeLesson'
+  },
+
+  computed: {
+    videoLink() {
+      return Helper.getVideoLink(this.id)
+    }
   },
 })
 

@@ -45,5 +45,18 @@ window.Helper = {
     const book4 = Array(45).fill().map((_, i) => 400 + i + 1)
 
     return [].concat(book1, book2, book3, book4)
-  }
+  },
+
+  getVideoLink(id) {
+    const LinkMap = {
+      '1': 'https://www.bilibili.com/video/av8809185',
+      '2': 'https://www.bilibili.com/video/av8804051',
+      '3': 'https://www.bilibili.com/video/av8551271',
+      '4': 'https://www.bilibili.com/video/av8807863',
+    }
+
+    id = id.toString()
+
+    return `${LinkMap[id[0]]}?p=${id.slice(1)}#page=${id.slice(1)}`
+  },
 }

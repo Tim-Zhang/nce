@@ -14,7 +14,7 @@
     <section>
       <div v-show="loading">Loading...</div>
       <div v-show="!loading">
-        <h1>{{title.en}}</h1>
+        <a :href="videoLink" target="nce-bilibili"><h1>{{title.en}}</h1></a>
         <audio ref="audio" :src="'http://tim-zhang.gitee.io/nce-resource/mp3/' + id + '.mp3'" controls controlsList="nodownload"></audio>
         <div class="line" v-for="(line, idx) in lines">
           <input autocorrect="off" autocapitalize="off" spellcheck="false"
@@ -43,8 +43,8 @@
   </template>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://cdn.bootcss.com/jsdiff/3.5.0/diff.min.js"></script>
-  <script src="js/helper.js?v=6"></script>
-  <script src="js/lrc.js?v=6"></script>
-  <script src="js/main.js?v=6"></script>
+  <script src="js/helper.js?v=8"></script>
+  <script src="js/lrc.js?v=8"></script>
+  <script src="js/index.js?v=8"></script>
 </body>
 </html
