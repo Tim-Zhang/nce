@@ -25,6 +25,7 @@ var app = new Vue({
       const q = Helper.parseQueryString()
       this.showChinese = !['0', 'false'].includes(q.chinese)
       this.showSubtitle = !['0', 'false'].includes(q.subtitle)
+      this.autoSubmit = ['1', 'true'].includes(q.submit) || q.scene === 'result'
 
       const lrc = new LRC(`/lrc/${this.id}.lrc`)
       await lrc.run()
@@ -36,6 +37,7 @@ var app = new Vue({
         placeholder: this.getPlaceholder(line),
       }, line))
 
+      if (this.autoSubmit) this.submit()
       this.loading = false
     },
 
@@ -109,6 +111,15 @@ var app = new Vue({
         }
       })
     },
+
+    showHelp() {
+      const msg = `Listen to the current line -> Win/Command + ?
+Submit -> Shift/Ctrl/Win/Command + Enter
+Restore -> Esc
+Clear all inputs -> Ctrl + l
+Open the video -> Click the title`
+      alert(msg)
+    },
   },
 
   async created() {
@@ -130,7 +141,6 @@ var app = new Vue({
 
     audio.addEventListener('timeupdate', () => {
       const currentTime = audio.currentTime
-      console.log(currentTime)
       if (this.stopTime === 0) this.setPlaceHolder(currentTime)
       if (this.stopTime && currentTime >= this.stopTime) audio.pause()
     })

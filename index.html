@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/index.css?v=1">
+  <link rel="stylesheet" href="css/index.css?v=2">
   <title>NCE</title>
 </head>
 <body>
@@ -33,18 +33,21 @@
             </span>
           </div>
         </div>
-        <input type="button" value="Submit" @click="submit" v-show="!lines[0] || !lines[0].diff"/>
-        <input type="button"  value="Restore" @click="restore" v-show="lines[0] && lines[0].diff"/>
-        <select v-model="id">
-          <option v-for="i in lessons">{{i}}</option>
-        </select>
+        <div class="controls">
+          <input type="button" value="Submit" @click="submit" v-show="!lines[0] || !lines[0].diff"/>
+          <input type="button"  value="Restore" @click="restore" v-show="lines[0] && lines[0].diff"/>
+          <select v-model="id">
+            <option v-for="i in lessons">{{i}}</option>
+          </select>
+          <a @click.prevent="showHelp" href="###" title="Shortcuts" class="help">❓</a>
+        </div>
       </div>
     </section>
   </template>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://cdn.bootcss.com/jsdiff/3.5.0/diff.min.js"></script>
-  <script src="js/helper.js?v=8"></script>
-  <script src="js/lrc.js?v=8"></script>
-  <script src="js/index.js?v=8"></script>
+  <script src="js/helper.js?v=9"></script>
+  <script src="js/lrc.js?v=9"></script>
+  <script src="js/index.js?v=9"></script>
 </body>
 </html
