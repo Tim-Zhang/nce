@@ -59,4 +59,9 @@ window.Helper = {
 
     return `${LinkMap[id[0]]}?p=${id.slice(1)}#page=${id.slice(1)}`
   },
+
+  setTitle(title) {
+    const defaultTitle = 'NCE'
+    document.title = title ? title + ' - ' + defaultTitle : defaultTitle
+  },
 }

@@ -30,6 +30,7 @@ var app = new Vue({
       const lrc = new LRC(`/lrc/${this.id}.lrc`)
       await lrc.run()
       this.title = lrc.title
+      Helper.setTitle(`${this.id} ${this.title.en}`)
       this.lines = lrc.lines.map(line => Object.assign({
         current: false,
         answer: '',
@@ -74,6 +75,7 @@ var app = new Vue({
     },
 
     changeLesson() {
+      Helper.setTitle(this.id)
       Helper.setLessionIdInUrl(this.id)
     },
 
