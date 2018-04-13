@@ -44,7 +44,11 @@ var app = new Vue({
 
     onLineKeydown(line, event) {
       // Hotkey: meta + ?
-      if (event.metaKey && event.which === 191) {
+      const hotkeyMetaQuestion = event.metaKey && event.which === 191
+      // Hotkey: meta/ctrl + click
+      const hotkeyCtrlClick = event.type === 'click' && (event.ctrlKey || event.metaKey)
+
+      if (hotkeyMetaQuestion || hotkeyCtrlClick) {
         this.setPlaceHolder(-1)
         this.$refs.audio.currentTime = line.start
         this.stopTime = line.end
@@ -116,6 +120,7 @@ var app = new Vue({
 
     showHelp() {
       const msg = `Listen to the current line -> Win/Command + ?
+Listen on the answer page -> Ctrl/Win/Command + Click
 Submit -> Shift/Ctrl/Win/Command + Enter
 Restore -> Esc
 Clear all inputs -> Ctrl + l

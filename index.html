@@ -26,7 +26,7 @@
             @keydown="onLineKeydown(line, $event)"
             @focus="onLineFocus(idx)"
           >
-          <div v-else :class="{current: line.current}">
+          <div v-else :class="{current: line.current}" @click="onLineKeydown(line, $event)">
             <span v-for="d in line.diff"
               :class="[d.added ? 'added' : d.removed ? 'removed' : 'equal']"
             >{{d.value}}
