@@ -2,11 +2,34 @@ body {
   font-size: 16px;
 }
 
+footer {
+  display: none;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+}
+
 @media (max-width: 640px) {
   body {
     font-size: 12px;
   }
 }
+
+
+@media print {
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  audio, select, input[type=button], .help {
+    display: none;
+  }
+  footer {
+    display: block;
+  }
+}
+
 
 .line {
   margin: 1em 0;
