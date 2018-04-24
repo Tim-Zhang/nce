@@ -25,7 +25,8 @@ var app = new Vue({
       const q = Helper.parseQueryString()
       this.showChinese = !['0', 'false'].includes(q.chinese)
       this.showSubtitle = !['0', 'false'].includes(q.subtitle)
-      this.autoSubmit = ['1', 'true'].includes(q.submit) || q.scene === 'result'
+      this.showResultDefault = ['1', 'true'].includes(q.submit) || q.scene === 'result'
+      this.showInputDefault = ['1', 'true'].includes(q.restore) || q.scene === 'input'
 
       const lrc = new LRC(`/lrc/${this.id}.lrc`)
       await lrc.run()
@@ -38,7 +39,9 @@ var app = new Vue({
         placeholder: this.getPlaceholder(line),
       }, line))
 
-      if (this.autoSubmit) this.submit()
+      if (this.showResultDefault || (Helper.isMobile() && Helper.tooSmall() && !this.showInputDefault)) {
+        this.submit()
+      }
       this.loading = false
     },
 
