@@ -15,7 +15,7 @@
       <div v-show="loading">Loading...</div>
       <div v-show="!loading">
         <a :href="videoLink" target="nce-bilibili"><h1>{{title.en}}</h1></a>
-        <audio ref="audio" :src="'http://tim-zhang.gitee.io/nce-resource/mp3/' + id + '.mp3'" controls controlsList="nodownload"></audio>
+        <audio ref="audio" :src="'//tim-zhang.gitee.io/nce-resource/mp3/' + id + '.mp3'" controls controlsList="nodownload"></audio>
         <div class="line" v-for="(line, idx) in lines">
           <input autocorrect="off" autocapitalize="off" spellcheck="false"
             ref="line" v-if="!line.diff" type="text" v-model="line.answer"
