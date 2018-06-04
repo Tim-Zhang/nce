@@ -47,6 +47,10 @@ audio {
   footer {
     display: block;
   }
+
+  .line input[type=text]::placeholder {
+    color: #ddd;
+  }
 }
 
 
@@ -64,6 +68,8 @@ audio {
   width: 100%;
   color: #333;
 }
+
+
 
 .line > div.current {
   background: #fff8d1;
