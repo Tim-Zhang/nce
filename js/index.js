@@ -167,7 +167,7 @@ Open the video -> Click the title`
   },
 
   watch: {
-    id: 'changeLesson'
+    id: 'changeLesson',
   },
 
   computed: {

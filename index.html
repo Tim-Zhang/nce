@@ -37,7 +37,7 @@
           <input type="button" value="Submit" @click="submit" v-show="!lines[0] || !lines[0].diff"/>
           <input type="button"  value="Restore" @click="restore" v-show="lines[0] && lines[0].diff"/>
           <select v-model="id">
-            <option v-for="i in lessons">{{i}}</option>
+            <option v-for="i in lessons" :value="i.id">{{i.id}} {{i.title}}</option>
           </select>
           <a @click.prevent="showHelp" href="###" title="Shortcuts" class="help">❓</a>
         </div>
@@ -47,6 +47,7 @@
   </template>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://cdn.bootcss.com/jsdiff/3.5.0/diff.min.js"></script>
+  <script src="js/titles.js?v=1"></script>
   <script src="js/helper.js?v=10"></script>
   <script src="js/lrc.js?v=10"></script>
   <script src="js/index.js?v=10"></script>

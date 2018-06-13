@@ -15,7 +15,7 @@ class LRC {
 
   parse() {
     const rawLines = this.raw.split('\n')
-    const [_, titleEn, titleCn] = rawLines[0].match(/lesson\s+\d+\s+([a-zA-Z!?.\s',]*)(.*)/i)
+    const [_, titleEn, titleCn] = rawLines[0].match(/lesson\s+\d+\s+([a-zA-Z!?.\s',-]*)(.*)/i)
     this.title.en = titleEn.trim()
     this.title.cn = titleCn.trim()
 
