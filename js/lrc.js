@@ -1,3 +1,4 @@
+const titleRegex = /---\s?(lesson\s+\d+\s+)?([a-zA-Z!?.\s',-]*)(.*)/i
 class LRC {
   constructor(src) {
     this.title = {}
@@ -15,14 +16,15 @@ class LRC {
 
   parse() {
     const rawLines = this.raw.split('\n')
-    const [_, titleEn, titleCn] = rawLines[0].match(/lesson\s+\d+\s+([a-zA-Z!?.\s',-]*)(.*)/i)
+
+    const [, , titleEn, titleCn] = rawLines[0].match(titleRegex)
     this.title.en = titleEn.trim()
     this.title.cn = titleCn.trim()
 
     this.lines = rawLines.filter(line => line.trim()).slice(1).map(line => {
       const timeEndPos = line.indexOf(']')
       const [m, s] = line.slice(1, timeEndPos).split(':').map(i => +i)
-      const start = m * 60 + s
+      const start = Number((m * 60 + s).toFixed(3))
       const [en, cn] = line.slice(timeEndPos + 1).split('^').map(str => str.trim())
       return {start, en, cn}
     })
