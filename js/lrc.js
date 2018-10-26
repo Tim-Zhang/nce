@@ -20,9 +20,10 @@ class LRC {
     this.title.cn = titleCn.trim()
 
     this.lines = rawLines.filter(line => line.trim()).slice(1).map(line => {
-      const [m, s] = line.slice(1, 10).split(':').map(i => +i)
+      const timeEndPos = line.indexOf(']')
+      const [m, s] = line.slice(1, timeEndPos).split(':').map(i => +i)
       const start = m * 60 + s
-      const [en, cn] = line.slice(11).split('^').map(str => str.trim())
+      const [en, cn] = line.slice(timeEndPos + 1).split('^').map(str => str.trim())
       return {start, en, cn}
     })
 

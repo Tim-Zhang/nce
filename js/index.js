@@ -172,7 +172,7 @@ Open the video -> Click the title`
 
   computed: {
     videoLink() {
-      return Helper.getVideoLink(this.id)
+      if (this.id < 500 || this.id > 999) return Helper.getVideoLink(this.id)
     }
   },
 })

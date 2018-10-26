@@ -33,18 +33,7 @@ window.Helper = {
   },
 
   initLessons() {
-    const book1 = Array(143).fill().map((_, i) => i + 1).filter(i => !!(i % 2)).map(i => {
-      let repeat = 2 - i.toString().length
-      repeat < 0 && (repeat = 0)
-      let prefix = '1' + '0'.repeat(repeat)
-      return Number(prefix + i)
-    }).map(id => ({id, title: titles[id]}))
-
-    const book2 = Array(96).fill().map((_, i) => 200 + i + 1).map(id => ({id, title: titles[id]}))
-    const book3 = Array(60).fill().map((_, i) => 300 + i + 1).map(id => ({id, title: titles[id]}))
-    const book4 = Array(45).fill().map((_, i) => 400 + i + 1).map(id => ({id, title: titles[id]}))
-
-    return [].concat(book1, book2, book3, book4)
+    return Object.keys(titles).sort().map(id => ({id: +id, title: titles[id]}))
   },
 
   getVideoLink(id) {
