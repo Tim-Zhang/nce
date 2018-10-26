@@ -41,3 +41,5 @@ class LRC {
     this.parse()
   }
 }
+
+if (typeof module !== 'undefined' && module.exports) module.exports.titleRegex = titleRegex
