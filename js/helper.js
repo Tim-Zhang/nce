@@ -33,7 +33,23 @@ window.Helper = {
   },
 
   initLessons() {
-    return Object.keys(titles).sort().map(id => ({id: +id, title: titles[id]}))
+    return Object.keys(titles).sort((a, b) => {
+      a = Number(a)
+      b = Number(b)
+
+      if (a >= 200 && a < 1000) {
+        a *= 10
+      }
+
+      if (b >= 200 && b < 1000) {
+        b *= 10
+      }
+
+      return a - b
+    }).map(id => ({
+      id: +id,
+      title: titles[id]
+    }))
   },
 
   getVideoLink(id) {
