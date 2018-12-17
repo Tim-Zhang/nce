@@ -12,7 +12,7 @@
   </div>
   <template id="main">
     <section>
-      <div v-show="loading">Loading...</div
+      <div v-show="loading">Loading...</div>
       <div v-show="!loading">
         <a :href="videoLink" target="nce-bilibili"><h1>{{title.en}}</h1></a>
         <audio ref="audio" :src="`//tim-zhang.gitee.io/nce-resource${uk ? '-uk' : ''}/mp3/${id}.mp3`" controls controlsList="nodownload"></audio>
