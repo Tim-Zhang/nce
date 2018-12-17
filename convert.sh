@@ -1,7 +1,11 @@
 #!/bin/bash
-for k in $( seq 1 45 )
+for k in $( seq -f "%03g" 1 99 )
 do
-	index=`expr 400 + ${k}`
-	# iconv -c -f GB2312 -t UTF-8 ./lrc2/E${index}.lrc > ./lrc/${index}.lrc
-	cp -a ./mp32/E${index}.mp3 ./mp3/${index}.mp3
+	target=`expr 100 + ${k}`
+
+	if [ -e /lrc2/E${k}.lrc ]
+	then
+		iconv -c -f GB2312 -t UTF-8 ./lrc2/E${k}.lrc > ./lrc/${target}.lrc
+		cp -a ./mp32/E${k}.mp3 ./mp3/${target}.mp3
+	fi
 done
