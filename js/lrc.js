@@ -9,6 +9,7 @@ class LRC {
 
   async load(src = this.src) {
     this.raw = await fetch(src).then(response => {
+      if (response.status !== 200) throw new Error(response.status + ' ' + response.statusText)
       return response.text()
     })
     return this.raw
@@ -21,7 +22,7 @@ class LRC {
     this.title.en = titleEn.trim()
     this.title.cn = titleCn.trim()
 
-    this.lines = rawLines.filter(line => line.trim()).slice(1).map(line => {
+    this.lines = rawLines.filter(line => !line.includes(']---') && line.trim()).map(line => {
       const timeEndPos = line.indexOf(']')
       const [m, s] = line.slice(1, timeEndPos).split(':').map(i => +i)
       const start = Number((m * 60 + s).toFixed(3))
