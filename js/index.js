@@ -23,13 +23,21 @@ var app = new Vue({
       this.loading = true
 
       const q = Helper.parseQueryString()
+      this.uk = ['1', 'true'].includes(q.uk)
       this.showChinese = !['0', 'false'].includes(q.chinese)
       this.showSubtitle = !['0', 'false'].includes(q.subtitle)
       this.showResultDefault = ['1', 'true'].includes(q.submit) || q.scene === 'result'
       this.showInputDefault = ['1', 'true'].includes(q.restore) || q.scene === 'input'
 
-      const lrc = new LRC(`/lrc/${this.id}.lrc`)
-      await lrc.run()
+      const lrcDir = this.uk ? 'lrc-uk' : 'lrc'
+      const lrc = new LRC(`/${lrcDir}/${this.id}.lrc`)
+
+      try {
+        await lrc.run()
+      } catch (e) {
+        return alert(e.message)
+      }
+
       this.title = lrc.title
       Helper.setTitle(`${this.id} ${this.title.en}`)
       this.lines = lrc.lines.map(line => Object.assign({
