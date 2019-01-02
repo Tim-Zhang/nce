@@ -17,7 +17,7 @@
         <a :href="videoLink" target="nce-bilibili"><h1>{{title.en}}</h1></a>
         <audio ref="audio" :src="`//tim-zhang.gitee.io/nce-resource${uk ? '-uk' : ''}/mp3/${id}.mp3`" controls controlsList="nodownload"></audio>
         <div class="line" v-for="(line, idx) in lines">
-          <input autocorrect="off" autocapitalize="off" spellcheck="false"
+          <input autocomplete="nope" autocorrect="off" autocapitalize="off" spellcheck="false"
             ref="line" v-if="!line.diff" type="text" v-model="line.answer"
             :placeholder="line.placeholder" :autofocus="idx === 0"
             @keydown.up="gotoPrevLine"
