@@ -83,6 +83,10 @@ audio {
   color: #555;
 }
 
+.added.highlight {
+  border: 1px solid;
+}
+
 .removed {
   color: red;
   text-decoration: line-through;
