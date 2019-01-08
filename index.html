@@ -28,7 +28,7 @@
           >
           <div v-else :class="{current: line.current}" @click="onLineKeydown(line, $event)">
             <span v-for="d in line.diff"
-              :class="[d.added ? 'added' : d.removed ? 'removed' : 'equal', {highlight:  d.added && d.value.length == 1}]"
+              :class="[d.added ? 'added' : d.removed ? 'removed' : 'equal', {highlight:  d.added && d.value.trim().length == 1}]"
             >{{d.value}}</span>
           </div>
         </div>
