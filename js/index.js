@@ -71,6 +71,26 @@ var app = new Vue({
       lastFocusIdx = idx
     },
 
+    onPaste(pasteIdx, e) {
+      if (pasteIdx >= this.lines.length - 1) return
+
+      const clipboardData = e.clipboardData || window.clipboardData
+      pastedData = clipboardData.getData('Text')
+
+      const data = pastedData.split('\n')
+      if (data.length <= 1) return
+
+      this.lines = this.lines.map((line, idx) => {
+        if (idx >= pasteIdx) {
+          line.answer = data[idx - pasteIdx]
+        }
+
+        return line
+      })
+
+      e.preventDefault()
+    },
+
     gotoPrevLine() {
       try {
         event.target.parentElement.previousElementSibling.children[0].focus()
@@ -92,6 +112,10 @@ var app = new Vue({
     changeLesson() {
       Helper.setTitle(this.id)
       Helper.setLessionIdInUrl(this.id)
+    },
+
+    shouldHighlight(d) {
+      return d.added && d.value.trim().length <= 1 || d.removed && d.value == ' '
     },
 
     submit() {

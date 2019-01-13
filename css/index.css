@@ -83,7 +83,7 @@ audio {
   color: #555;
 }
 
-.added.highlight {
+.added.highlight, .removed.highlight {
   border: 1px solid;
 }
 
