@@ -115,7 +115,8 @@ var app = new Vue({
     },
 
     shouldHighlight(d) {
-      return d.added && d.value.trim().length <= 1 || d.removed && d.value == ' '
+      const trimedValue = d.value.trim()
+      return d.added && trimedValue.length <= 1 || d.removed && trimedValue.length <= 1
     },
 
     submit() {
